@@ -449,3 +449,107 @@ input::placeholder {
     from { text-shadow: 0 0 10px #ff7eb3, 0 0 20px #ff7eb3, 0 0 30px #ff7eb3; }
     to { text-shadow: 0 0 20px #ff9a9e, 0 0 30px #ff9a9e, 0 0 40px #ff9a9e; }
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .sub-title {
+        font-size: 1rem;
+    }
+    
+    .glass-card {
+        padding: 30px 20px;
+        width: 90%;
+    }
+    
+    .input-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    input {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .balloon-container {
+        width: 95%;
+        gap: 10px;
+        margin-top: 30px;
+    }
+    
+    .balloon {
+        width: 60px;
+        height: 80px;
+    }
+    
+    .sentence {
+        font-size: 1.8rem;
+        margin-top: 30px;
+    }
+
+    .cake-container {
+        width: 90vw;
+        height: 90vw;
+        max-width: 400px;
+        max-height: 400px;
+    }
+    
+    .bday-text {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    .bouquet-img {
+        width: 80vw;
+        height: 80vw;
+        max-width: 450px;
+        max-height: 450px;
+    }
+
+    .msg {
+        font-size: 1.2rem;
+        padding: 5px 10px;
+    }
+    
+    .msg-1 { top: 10%; left: 5%; }
+    .msg-2 { top: 15%; right: 5%; }
+    .msg-3 { bottom: 25%; left: 5%; }
+    .msg-4 { bottom: 20%; right: 5%; }
+    .msg-5 { top: 35%; left: 2%; }
+    .msg-6 { top: 45%; right: 2%; }
+    .msg-7 { bottom: 35%; left: 10%; }
+    .msg-8 { top: 5%; left: 35%; }
+    .msg-9 { bottom: 10%; right: 20%; }
+    .msg-10 { top: 65%; right: 5%; }
+
+    .gift-img {
+        width: 70vw;
+        height: 70vw;
+        max-width: 300px;
+        max-height: 300px;
+    }
+
+    .greeting-card {
+        width: 95%;
+        padding: 20px;
+        font-size: 0.95rem;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+    
+    .greeting-card .highlight {
+        font-size: 1.5rem;
+    }
+    
+    .countdown {
+        font-size: 3rem;
+    }
+}

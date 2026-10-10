@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loginBtn.addEventListener('click', () => {
         if (passwordInput.value.toLowerCase() === 'crybaby') {
+            const bgMusic = document.getElementById('bgMusic');
+            bgMusic.play().catch(e => console.log("Audio play blocked by browser:", e));
             switchPage('page1', 'page2');
         } else {
             errorMsg.classList.remove('hidden');

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Little Surprise For You ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Floating Particles -->
+    <div id="particles-container"></div>
+
+    <!-- PAGE 1: Login -->
+    <section id="page1" class="page active">
+        <div class="glass-card fade-in-up">
+            <h4 class="sub-title pulse-glow">A LITTLE SURPRISE FOR YOU ✨</h4>
+            <h1 class="main-title">One Small Gift From Me</h1>
+            <p class="tagline">I’ve always wanted to call you like this 💗</p>
+            
+            <div class="input-group">
+                <input type="password" id="passwordInput" placeholder="Enter password (crybaby)">
+                <button id="loginBtn">Unlock</button>
+            </div>
+            <p id="errorMsg" class="hidden">Wrong password, try again! 🥺</p>
+        </div>
+    </section>
+
+    <!-- PAGE 2: Balloons -->
+    <section id="page2" class="page hidden">
+        <h2 class="page-title fade-in">Pop All The Balloons One By One 🎈</h2>
+        <div class="balloon-container">
+            <div class="balloon" data-word="You 🫵"></div>
+            <div class="balloon" data-word="are 💫"></div>
+            <div class="balloon" data-word="so ✨"></div>
+            <div class="balloon" data-word="special 💖"></div>
+            <div class="balloon" data-word="to 🎀"></div>
+            <div class="balloon" data-word="me 🥺"></div>
+        </div>
+        <div id="sentenceContainer" class="sentence"></div>
+        <button id="nextBtn2" class="hidden next-btn fade-in">Next ➡️</button>
+    </section>
+
+    <!-- PAGE 3: Cake -->
+    <section id="page3" class="page hidden">
+        <h2 id="cakeHeading" class="page-title fade-in">Blow the candle 🕯️</h2>
+        <div class="cake-container fade-in">
+            <img src="assets/cake.jpg" alt="Birthday Cake" class="cake-img">
+            <div class="dark-overlay"></div>
+        </div>
+        <h1 id="bdayText" class="bday-text hidden">Happy Birthday Sona Kajal! 🎉</h1>
+        <button id="nextBtn3" class="hidden next-btn fade-in">Next ➡️</button>
+    </section>
+
+    <!-- PAGE 4: Bouquet -->
+    <section id="page4" class="page hidden">
+        <div class="bouquet-container fade-in">
+            <img src="assets/rose.jpg" alt="Rose Bouquet" class="bouquet-img">
+            
+            <div class="msg msg-1">Always Happy 😊</div>
+            <div class="msg msg-2">You are so cute 🥰</div>
+            <div class="msg msg-3">My Cry Baby 😭</div>
+            <div class="msg msg-4">Sweetest Person 🍬</div>
+            <div class="msg msg-5">Stay Blessed 😇</div>
+            <div class="msg msg-6">Beautiful Soul 🌸</div>
+            <div class="msg msg-7">Precious ✨</div>
+            <div class="msg msg-8">Cutie Pie 🥧</div>
+            <div class="msg msg-9">Never Change 🥺</div>
+            <div class="msg msg-10">Lots of Love ❤️</div>
+        </div>
+        <button id="nextBtn4" class="next-btn bottom-btn fade-in" style="animation-delay: 3s; animation-fill-mode: both;">Next ➡️</button>
+    </section>
+
+    <!-- PAGE 5: Final Message -->
+    <section id="page5" class="page hidden">
+        <div class="final-container">
+            <h2 id="lastGiftText" class="page-title fade-in">One Last Gift For You 🎁</h2>
+            <div class="gift-wrapper fade-in" id="giftWrapper">
+                <img src="assets/gift.jpg" alt="Gift Box" class="gift-img">
+                <div id="countdown" class="countdown">3</div>
+            </div>
+
+            <div id="greetingCard" class="greeting-card hidden">
+                <p>Today is your special day, and I just wanted to leave you with one last little message from my heart. 💗</p>
+                <p>You are genuinely such a special person. Your smile, your presence, your kindness and even the little things you do can make ordinary moments feel beautiful. Never forget how precious you are. ✨</p>
+                <p>I hope this birthday brings you endless happiness, beautiful memories, success in everything you dream about, and people who always make you feel loved and appreciated. 🦋</p>
+                <p>Whenever life gets difficult, remember that you are stronger than you think and more special than you realise. Keep smiling, keep laughing and most importantly, keep being yourself. 💕</p>
+                <p>I made this little website just to put a smile on your face. Maybe it's only code, animations and words, but every little part was made especially for this moment. And if you smiled even once, then my gift is already worth it. ❤️</p>
+                <p>I hope this new chapter of your life is filled with happiness, peace, success, love and lots of beautiful memories. 🌹✨</p>
+                <br>
+                <p class="highlight">Once again, Happy Birthday Sona Kajal! 🎂💐</p>
+                <p class="highlight">With lots of love ❤️<br>Happy Birthday My Cry Baby! 🎉</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

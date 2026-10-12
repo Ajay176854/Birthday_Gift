@@ -42,7 +42,7 @@ export default function Stage2Balloons({ onNext }) {
         </div>
       </div>
 
-      <div className="balloon-container">
+      <div className={`balloon-container ${allPopped ? 'all-popped' : ''}`}>
         {BALLOONS.map((b) => {
           const isPopped = popped.includes(b.id);
           return (
@@ -57,7 +57,7 @@ export default function Stage2Balloons({ onNext }) {
         })}
       </div>
 
-      <div className="sentence">
+      <div className={`sentence ${allPopped ? 'complete' : ''}`}>
         {BALLOONS.filter((b) => popped.includes(b.id)).map((b) => (
           <span key={b.id}>{b.word}</span>
         ))}

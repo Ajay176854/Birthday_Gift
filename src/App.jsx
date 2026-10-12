@@ -8,6 +8,7 @@ import Stage2Balloons from './components/stages/Stage2Balloons';
 import Stage3Cake from './components/stages/Stage3Cake';
 import Stage4WishingSky from './components/stages/Stage4WishingSky';
 import Stage5Bouquet from './components/stages/Stage5Bouquet';
+import Stage6Memories from './components/stages/Stage6Memories';
 import Stage6FlipCards from './components/stages/Stage6FlipCards';
 import Stage7Fireworks from './components/stages/Stage7Fireworks';
 import Stage8FinalLetter from './components/stages/Stage8FinalLetter';
@@ -50,9 +51,10 @@ export default function App() {
       {currentStage === 3 && <Stage3Cake onNext={() => goToStage(4)} />}
       {currentStage === 4 && <Stage4WishingSky onNext={() => goToStage(5)} />}
       {currentStage === 5 && <Stage5Bouquet onNext={() => goToStage(6)} />}
-      {currentStage === 6 && <Stage6FlipCards onNext={() => goToStage(7)} />}
-      {currentStage === 7 && <Stage7Fireworks onNext={() => goToStage(8)} />}
-      {currentStage === 8 && <Stage8FinalLetter onReplay={handleReplay} />}
+      {currentStage === 6 && <Stage6Memories onNext={() => goToStage(7)} />}
+      {currentStage === 7 && <Stage6FlipCards onNext={() => goToStage(8)} />}
+      {currentStage === 8 && <Stage7Fireworks onNext={() => goToStage(9)} />}
+      {currentStage === 9 && <Stage8FinalLetter onReplay={handleReplay} />}
     </main>
   );
 }

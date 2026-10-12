@@ -25,14 +25,23 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html,
+body,
+#root,
+main {
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
 body {
   font-family: var(--font-body);
   background: radial-gradient(circle at 50% 20%, #301142 0%, #170726 50%, #090212 100%);
   color: #fff;
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
-  position: relative;
   user-select: none;
 }
 
@@ -41,8 +50,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 5;
 }
@@ -52,8 +61,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 2;
   overflow: hidden;
@@ -188,17 +197,22 @@ body {
 
 /* Stages Shell & Animations */
 .stage-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
+  justify-content: safe center;
+  padding: 72px 20px 92px;
   overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   z-index: 20;
   animation: fadeInStage 0.4s ease-out forwards;
 }
@@ -394,6 +408,17 @@ input[type="password"]:focus {
   justify-content: center;
   max-width: 850px;
   z-index: 15;
+  transition: max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease;
+}
+
+.balloon-container.all-popped {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .balloon {
@@ -442,7 +467,7 @@ input[type="password"]:focus {
 }
 
 .sentence {
-  margin-top: 40px;
+  margin-top: 30px;
   font-size: 2.8rem;
   font-family: var(--font-heading);
   min-height: 60px;
@@ -453,6 +478,25 @@ input[type="password"]:focus {
   color: #ffd1dc;
   text-shadow: 0 0 15px rgba(255, 117, 140, 0.8);
   z-index: 15;
+  max-width: 850px;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.sentence.complete {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 117, 140, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 20px 28px;
+  border-radius: 26px;
+  box-shadow: 0 10px 35px rgba(255, 117, 140, 0.25);
+  animation: sentenceGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes sentenceGlow {
+  0% { box-shadow: 0 10px 30px rgba(255, 117, 140, 0.25); border-color: rgba(255, 117, 140, 0.35); }
+  100% { box-shadow: 0 12px 40px rgba(255, 117, 140, 0.45), 0 0 25px rgba(255, 209, 102, 0.3); border-color: rgba(255, 209, 102, 0.5); }
 }
 
 .sentence span {
@@ -699,12 +743,19 @@ input[type="password"]:focus {
 /* Stage 5: Bouquet */
 .bouquet-container {
   position: relative;
-  width: 100vw;
-  height: 65vh;
+  width: 100%;
+  max-width: 800px;
+  height: 62vh;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 15;
+}
+
+.bouquet-badges-wrapper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 .bouquet-img {
@@ -724,6 +775,7 @@ input[type="password"]:focus {
 
 .msg {
   position: absolute;
+  pointer-events: auto;
   font-family: var(--font-heading);
   font-size: 1.6rem;
   color: #fff;
@@ -754,7 +806,299 @@ input[type="password"]:focus {
 .msg-9 { bottom: 3%; right: 38%; transform: rotate(-5deg); }
 .msg-10 { top: 62%; right: 20%; transform: rotate(14deg); }
 
-/* Stage 6: Flip Cards */
+/* Stage 6: Memories Gallery */
+.memories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  max-width: 1050px;
+  width: 100%;
+  margin: 15px 0 25px;
+  z-index: 15;
+}
+
+.polaroid-card {
+  background: rgba(255, 255, 255, 0.94);
+  color: #2d132c;
+  border-radius: 20px;
+  padding: 14px 14px 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35), 0 0 25px rgba(255, 117, 140, 0.15);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.polaroid-card:nth-child(1) { transform: rotate(-2deg); }
+.polaroid-card:nth-child(2) { transform: rotate(1.5deg); }
+.polaroid-card:nth-child(3) { transform: rotate(-1.5deg); }
+.polaroid-card:nth-child(4) { transform: rotate(2deg); }
+
+.polaroid-card:hover {
+  transform: translateY(-8px) scale(1.04) rotate(0deg) !important;
+  box-shadow: 0 22px 45px rgba(255, 117, 140, 0.45);
+  z-index: 10;
+}
+
+.polaroid-card.loved {
+  border: 2px solid #ff758c;
+  box-shadow: 0 15px 35px rgba(255, 117, 140, 0.4);
+}
+
+.polaroid-pin {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  z-index: 5;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+}
+
+.polaroid-img-box {
+  width: 100%;
+  height: 230px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: #1a0b2e;
+}
+
+.polaroid-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.polaroid-card:hover .polaroid-img {
+  transform: scale(1.06);
+}
+
+.heart-stamp {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(15, 5, 25, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  z-index: 5;
+}
+
+.heart-stamp:hover {
+  transform: scale(1.18);
+  background: rgba(255, 71, 87, 0.85);
+}
+
+.heart-stamp.active {
+  background: #ff4757;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #ff4757;
+}
+
+.polaroid-caption {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.polaroid-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #e84393;
+  letter-spacing: 1px;
+  display: block;
+}
+
+.polaroid-title {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  color: #2d132c;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.polaroid-date {
+  font-size: 0.76rem;
+  color: #833471;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Memory Lightbox Modal */
+.memory-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 3, 18, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+  animation: modalFadeIn 0.3s ease-out forwards;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.memory-modal-card {
+  background: rgba(24, 10, 36, 0.95);
+  border: 1px solid rgba(255, 117, 140, 0.4);
+  border-radius: 28px;
+  max-width: 740px;
+  width: 95%;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 50px rgba(255, 117, 140, 0.3);
+  animation: modalZoomIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  overflow: hidden;
+}
+
+@keyframes modalZoomIn {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 71, 87, 0.8);
+  transform: rotate(90deg);
+}
+
+.modal-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 28px;
+}
+
+.modal-img-wrap {
+  width: 100%;
+  height: 360px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: #11051b;
+}
+
+.modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.modal-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffd166;
+  letter-spacing: 1.5px;
+}
+
+.modal-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: #ff9a9e;
+  line-height: 1.2;
+  text-shadow: 0 0 15px rgba(255, 154, 158, 0.6);
+}
+
+.modal-date {
+  font-size: 0.85rem;
+  color: #ffe6ec;
+  opacity: 0.85;
+}
+
+.modal-quote {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: #fce4ec;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  gap: 12px;
+}
+
+.modal-heart-btn {
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  border-radius: 25px;
+}
+
+.modal-heart-btn.active {
+  background: linear-gradient(135deg, #ff4757, #ff6b81);
+  box-shadow: 0 0 25px rgba(255, 71, 87, 0.6);
+}
+
+.modal-nav-arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.arrow-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.arrow-btn:hover {
+  background: rgba(255, 117, 140, 0.4);
+  transform: scale(1.1);
+}
+
+/* Stage 7: Special Honors Flip Cards */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1093,17 +1437,623 @@ input[type="password"]:focus {
   100% { transform: translateY(115vh) rotate(720deg) translateX(100px); opacity: 0; }
 }
 
-/* Mobile Responsiveness */
+/* ==========================================================================
+   Mobile Responsiveness (Tablets & Phones)
+   ========================================================================== */
 @media (max-width: 768px) {
-  .main-title { font-size: 2.7rem; }
-  .page-title { font-size: 2.2rem; }
-  .entrance-card { padding: 30px 20px; }
-  .input-group { flex-direction: column; }
-  input[type="password"] { width: 100%; }
-  .cake-stage { width: 300px; height: 300px; }
-  .wish-options { grid-template-columns: 1fr; }
-  .bouquet-img { width: 280px; height: 280px; }
-  .msg { font-size: 1.15rem; padding: 6px 14px; }
-  .cards-grid { grid-template-columns: 1fr; }
-  .greeting-card { padding: 25px 20px; }
+  /* Music Controller: Sleek, compact top-right capsule */
+  .music-controller {
+    top: max(10px, env(safe-area-inset-top, 0px));
+    right: max(12px, env(safe-area-inset-right, 0px));
+    padding: 6px 12px;
+    gap: 8px;
+    border-radius: 30px;
+  }
+
+  .vinyl-disk {
+    width: 28px;
+    height: 28px;
+  }
+
+  .music-icon {
+    font-size: 11px;
+  }
+
+  .music-title {
+    font-size: 0.72rem;
+  }
+
+  .sound-wave {
+    height: 10px;
+    gap: 2px;
+  }
+
+  .sound-wave span {
+    width: 2.5px;
+  }
+
+  /* Milestone Stepper: Sleek bottom indicator */
+  .milestone-stepper {
+    bottom: max(10px, env(safe-area-inset-bottom, 0px));
+    padding: 6px 14px;
+    gap: 7px;
+    border-radius: 24px;
+  }
+
+  .step-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .step-dot.active {
+    transform: scale(1.3);
+  }
+
+  /* Stage Container: Safe clearance at top (music) and bottom (stepper) */
+  .stage-container {
+    justify-content: flex-start;
+    padding-top: max(68px, calc(env(safe-area-inset-top, 0px) + 58px));
+    padding-bottom: max(92px, calc(env(safe-area-inset-bottom, 0px) + 82px));
+    padding-left: max(14px, env(safe-area-inset-left, 0px));
+    padding-right: max(14px, env(safe-area-inset-right, 0px));
+    scroll-behavior: smooth;
+  }
+
+  /* Section Header & Typography */
+  .section-header {
+    margin-bottom: 16px;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+    line-height: 1.25;
+    padding: 0 4px;
+  }
+
+  .page-subtitle {
+    font-size: 0.88rem;
+    margin-top: 4px;
+  }
+
+  .progress-pill {
+    font-size: 0.82rem;
+    padding: 5px 14px;
+    margin-top: 6px;
+  }
+
+  /* Buttons & Nav Controls */
+  .glow-button {
+    padding: 12px 26px;
+    font-size: 1rem;
+  }
+
+  .nav-controls {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .next-btn {
+    font-size: 1.05rem;
+    padding: 13px 30px;
+  }
+
+  /* Stage 1: Entrance / Login */
+  .entrance-card {
+    padding: 28px 18px;
+    width: 94%;
+    max-width: 380px;
+    border-radius: 22px;
+  }
+
+  .lock-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 12px;
+  }
+
+  .lock-emoji {
+    font-size: 26px;
+  }
+
+  .sub-title {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+
+  .main-title {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+  }
+
+  .tagline {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .input-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .entrance-card .glow-button {
+    width: 100%;
+  }
+
+  /* Stage 2: Balloons */
+  .balloon-container {
+    gap: 12px;
+    margin-top: 14px;
+    max-width: 320px;
+  }
+
+  .balloon {
+    width: 66px;
+    height: 86px;
+  }
+
+  .balloon-string {
+    height: 22px;
+    bottom: -20px;
+  }
+
+  .balloon-container.all-popped {
+    max-height: 0;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sentence {
+    font-size: 1.55rem;
+    gap: 8px 12px;
+    margin-top: 16px;
+    min-height: 48px;
+    max-width: 92vw;
+  }
+
+  .sentence.complete {
+    padding: 16px 14px;
+    border-radius: 20px;
+    margin-top: 14px;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  /* Stage 3: Cake */
+  .cake-stage {
+    width: min(270px, 75vw);
+    height: min(270px, 75vw);
+    margin: 8px auto 14px;
+  }
+
+  .cake-box,
+  .cake-img {
+    border-radius: 20px;
+  }
+
+  .candle-stick {
+    width: 8px;
+    height: 32px;
+  }
+
+  .flame {
+    width: 14px;
+    height: 24px;
+  }
+
+  .cake-actions {
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .bday-text {
+    font-size: 1.85rem;
+    margin-top: 14px;
+    line-height: 1.25;
+    padding: 0 8px;
+  }
+
+  /* Stage 4: Wishing Sky */
+  .wish-options {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    width: 100%;
+    max-width: 340px;
+    margin-bottom: 14px;
+  }
+
+  .wish-card {
+    padding: 9px 14px;
+    border-radius: 14px;
+  }
+
+  .wish-icon {
+    font-size: 20px;
+  }
+
+  .wish-text {
+    font-size: 0.84rem;
+  }
+
+  .lantern-stage {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 12px;
+  }
+
+  .sky-lantern {
+    width: 105px;
+    height: 105px;
+  }
+
+  .constellation-card {
+    padding: 18px 16px;
+    border-radius: 18px;
+    max-width: 350px;
+    margin-top: 14px;
+    width: 100%;
+  }
+
+  .constellation-title {
+    font-size: 1.45rem;
+  }
+
+  .constellation-msg {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  /* Stage 5: Bouquet */
+  .bouquet-container {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    flex-direction: column;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .bouquet-img {
+    width: min(190px, 52vw);
+    height: min(190px, 52vw);
+    margin-bottom: 14px;
+  }
+
+  .bouquet-badges-wrapper {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+    max-width: 360px;
+    pointer-events: auto;
+  }
+
+  .bouquet-container .msg {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    font-size: 0.85rem;
+    padding: 6px 13px;
+    margin: 0;
+    border-radius: 20px;
+    line-height: 1.2;
+  }
+
+  /* Stage 6: Memories Gallery */
+  .memories-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 380px;
+    margin: 10px auto 16px;
+  }
+
+  .polaroid-card {
+    padding: 10px 10px 14px;
+    border-radius: 16px;
+    transform: none !important;
+  }
+
+  .polaroid-pin {
+    top: -10px;
+    font-size: 18px;
+  }
+
+  .polaroid-img-box {
+    height: 155px;
+    border-radius: 10px;
+  }
+
+  .polaroid-badge {
+    font-size: 0.58rem;
+    letter-spacing: 0.5px;
+  }
+
+  .polaroid-title {
+    font-size: 1.15rem;
+    margin-top: 1px;
+    line-height: 1.15;
+  }
+
+  .polaroid-date {
+    font-size: 0.68rem;
+  }
+
+  .heart-stamp {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+    bottom: 6px;
+    right: 6px;
+  }
+
+  /* Memory Modal on Mobile */
+  .memory-modal-card {
+    border-radius: 22px;
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+
+  .modal-content-grid {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 14px 16px;
+    gap: 14px;
+  }
+
+  .modal-img-wrap {
+    height: 230px;
+    border-radius: 16px;
+  }
+
+  .modal-title {
+    font-size: 1.65rem;
+  }
+
+  .modal-quote {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .modal-heart-btn {
+    width: 100%;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .modal-nav-arrows {
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Stage 7: Flip Cards & Honors */
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-width: 360px;
+    margin-bottom: 14px;
+  }
+
+  .flip-card {
+    height: 195px;
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    padding: 12px 8px;
+    border-radius: 16px;
+  }
+
+  .card-badge {
+    font-size: 0.62rem;
+    margin-bottom: 3px;
+  }
+
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+
+  .flip-card-front h3 {
+    font-size: 0.86rem;
+    line-height: 1.2;
+  }
+
+  .flip-card-front .tap-hint {
+    font-size: 0.68rem !important;
+    margin-top: 4px !important;
+  }
+
+  .flip-card-back h4 {
+    font-size: 0.82rem;
+    margin-bottom: 4px;
+  }
+
+  .flip-card-back p {
+    font-size: 0.7rem;
+    line-height: 1.35;
+  }
+
+  .award-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+    padding: 12px 16px;
+    max-width: 340px;
+    border-radius: 24px;
+  }
+
+  .award-crown-img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .royal-title {
+    font-size: 1.15rem;
+  }
+
+  .royal-sub {
+    font-size: 0.78rem;
+  }
+
+  /* Stage 7: Fireworks */
+  .fireworks-interactive-zone {
+    width: 94vw;
+    height: 36vh;
+    max-height: 240px;
+    border-radius: 18px;
+  }
+
+  .tap-sky-guide {
+    font-size: 0.82rem;
+    padding: 7px 16px;
+  }
+
+  .firework-toolbar {
+    gap: 8px;
+    margin-top: 12px;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .toolbar-btn {
+    padding: 9px 12px;
+    font-size: 0.8rem;
+    flex: 1 1 calc(50% - 8px);
+    text-align: center;
+  }
+
+  .blast-btn {
+    flex: 1 1 100%;
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+
+  /* Stage 8: Final Letter */
+  .gift-img {
+    width: 190px;
+    height: 190px;
+  }
+
+  .gift-bow {
+    font-size: 42px;
+    top: -16px;
+  }
+
+  .countdown {
+    font-size: 4.2rem;
+  }
+
+  .greeting-card {
+    padding: 22px 16px;
+    max-height: none;
+    overflow: visible;
+    width: 100%;
+    max-width: 380px;
+    border-width: 2px;
+    border-radius: 20px;
+  }
+
+  .card-ribbon-top {
+    margin-bottom: 14px;
+  }
+
+  .card-ribbon-top span {
+    font-size: 1.25rem;
+    padding: 4px 16px;
+    border-radius: 16px;
+  }
+
+  .letter-intro {
+    font-size: 1.55rem;
+    margin-bottom: 10px;
+  }
+
+  .letter-body p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .letter-signature .highlight {
+    font-size: 1.65rem;
+  }
+
+  .letter-signature .highlight-sub {
+    font-size: 0.9rem;
+  }
+
+  .wax-seal {
+    width: 48px;
+    height: 48px;
+    font-size: 0.75rem;
+    margin-top: 14px;
+  }
+
+  .final-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .final-btn {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Extra small devices (<= 380px, e.g. iPhone SE / small Android) */
+@media (max-width: 380px) {
+  .page-title {
+    font-size: 1.55rem;
+  }
+
+  .balloon {
+    width: 58px;
+    height: 76px;
+  }
+
+  .sentence {
+    font-size: 1.35rem;
+  }
+
+  .cards-grid,
+  .memories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .polaroid-img-box {
+    height: 180px;
+  }
+
+  .cake-stage {
+    width: 230px;
+    height: 230px;
+  }
 }

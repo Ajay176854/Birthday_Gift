@@ -33,19 +33,21 @@ export default function Stage5Bouquet({ onNext }) {
       <div className="bouquet-container">
         <img src="/assets/rose.jpg" alt="Rose Bouquet" className="bouquet-img" />
 
-        {SECRETS.map((s) => (
-          <div
-            key={s.id}
-            className={`msg ${s.class}`}
-            style={{
-              transform: activeBadge === s.id ? 'scale(1.25)' : undefined,
-              transition: 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-            }}
-            onClick={() => handleClickBadge(s.id)}
-          >
-            {s.text}
-          </div>
-        ))}
+        <div className="bouquet-badges-wrapper">
+          {SECRETS.map((s) => (
+            <div
+              key={s.id}
+              className={`msg ${s.class}`}
+              style={{
+                transform: activeBadge === s.id ? 'scale(1.25)' : undefined,
+                transition: 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+              }}
+              onClick={() => handleClickBadge(s.id)}
+            >
+              {s.text}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="nav-controls">

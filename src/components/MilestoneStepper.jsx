@@ -6,9 +6,10 @@ const STEPS = [
   { step: 3, label: 'Cake & Candle' },
   { step: 4, label: 'Wishing Sky' },
   { step: 5, label: 'Rose Bouquet' },
-  { step: 6, label: 'Special Cards' },
-  { step: 7, label: 'Fireworks' },
-  { step: 8, label: 'Royal Letter' }
+  { step: 6, label: 'Memories' },
+  { step: 7, label: 'Special Cards' },
+  { step: 8, label: 'Fireworks' },
+  { step: 9, label: 'Royal Letter' }
 ];
 
 export default function MilestoneStepper({ currentStage, maxUnlockedStage, onSelectStage }) {

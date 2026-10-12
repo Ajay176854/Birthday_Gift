@@ -10,7 +10,8 @@ const MEMORIES = [
     title: 'Laughs & Sunshine',
     date: 'Everyday Bliss ✨',
     quote: 'Walking beside you with endless laughter. You make every simple moment feel like an unforgettable adventure! 🥰',
-    emoji: '👫'
+    emoji: '👫',
+    imgPosition: 'center 0%'
   },
   {
     id: 2,
@@ -19,7 +20,8 @@ const MEMORIES = [
     title: 'Innocence & Grace',
     date: 'Cutest Mood 🌸',
     quote: 'Look at this sweet cutie with flower petals! Your gentle smile can light up the entire room and melt any heart. 🥺💖',
-    emoji: '👑'
+    emoji: '👑',
+    imgPosition: 'center 8%'
   },
   {
     id: 3,
@@ -28,7 +30,8 @@ const MEMORIES = [
     title: 'My Favorite Smile',
     date: 'Pure Radiance 💫',
     quote: 'That gorgeous pose, those glasses, and that sweet smile. Truly the most precious and beautiful soul inside and out. 💖',
-    emoji: '💎'
+    emoji: '💎',
+    imgPosition: 'center 10%'
   },
   {
     id: 4,
@@ -37,7 +40,8 @@ const MEMORIES = [
     title: 'Warm Little Talks',
     date: 'Cherished Times 🎀',
     quote: 'Sitting together, sharing sweet conversations, and collecting quiet moments that I will cherish forever. 💕',
-    emoji: '🌹'
+    emoji: '🌹',
+    imgPosition: 'center 0%'
   }
 ];
 
@@ -107,7 +111,13 @@ export default function Stage6Memories({ onNext }) {
             >
               <div className="polaroid-pin">📌</div>
               <div className="polaroid-img-box">
-                <img src={m.img} alt={m.title} className="polaroid-img" loading="lazy" />
+                <img
+                  src={m.img}
+                  alt={m.title}
+                  className="polaroid-img"
+                  style={{ objectPosition: m.imgPosition || 'top center' }}
+                  loading="lazy"
+                />
                 <button
                   type="button"
                   className={`heart-stamp ${isLoved ? 'active' : ''}`}
@@ -146,6 +156,7 @@ export default function Stage6Memories({ onNext }) {
                   src={selectedMemory.img}
                   alt={selectedMemory.title}
                   className="modal-img"
+                  style={{ objectPosition: selectedMemory.imgPosition || 'top center' }}
                 />
               </div>
 

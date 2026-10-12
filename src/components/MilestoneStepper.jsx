@@ -20,7 +20,7 @@ export default function MilestoneStepper({ currentStage, maxUnlockedStage, onSel
         if (s.step === currentStage) cls += ' active';
         else if (s.step < currentStage) cls += ' passed';
 
-        const canClick = s.step <= maxUnlockedStage && s.step !== currentStage;
+        const canClick = s.step !== currentStage;
 
         return (
           <div
